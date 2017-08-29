@@ -32,14 +32,15 @@ cd gecko
 git config fetch.prune true
 git config push.default upstream
 ```
-*   Configure Inbound/Central
+*   Configure Central
 ```
 git remote add central hg::https://hg.mozilla.org/mozilla-central -t branches/default/tip
+git config remote.central.fetch +refs/heads/branches/default/tip:refs/remotes/central/default
+```
+*   Configure Inbound
+```
 git remote add inbound hg::https://hg.mozilla.org/integration/mozilla-inbound -t branches/default/tip
 git remote set-url --push inbound hg::ssh://hg.mozilla.org/integration/mozilla-inbound
-git config remote.central.fetch +refs/heads/branches/*/tip:refs/remotes/central/*
-git config remote.inbound.fetch +refs/heads/branches/*/tip:refs/remotes/inbound/*
-git config remote.central.fetch +refs/heads/branches/default/tip:refs/remotes/central/default
 git config remote.inbound.fetch +refs/heads/branches/default/tip:refs/remotes/inbound/default
 ```
 *   Configure Try
@@ -49,11 +50,15 @@ git config remote.try.skipDefaultUpdate true
 git remote set-url --push try hg::ssh://hg.mozilla.org/try
 git config remote.try.push +HEAD:refs/heads/branches/default/tip
 ```
-*   Configure fx-team
+*   Configure Beta
 ```
-git remote add fx-team hg::https://hg.mozilla.org/integration/fx-team -t branches/default/tip
-git config remote.fx-team.fetch +refs/heads/branches/*/tip:refs/remotes/fx-team/*
-git config remote.fx-team.fetch +refs/heads/branches/default/tip:refs/remotes/fx-team/default
+git remote add beta hg::https://hg.mozilla.org/releases/mozilla-beta -t branches/default/tip
+git config remote.beta.fetch +refs/heads/branches/default/tip:refs/remotes/beta/default
+```
+*   Configure Release
+```
+git remote add release hg::https://hg.mozilla.org/releases/mozilla-release -t branches/default/tip
+git config remote.release.fetch +refs/heads/branches/default/tip:refs/remotes/release/default
 ```
 *   Fetch updates for all remote branches
     *   ```git remote update```
